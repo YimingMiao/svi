@@ -37,9 +37,9 @@ svi_map <- function(data, index) {
 #' The spectral signature is calculated by taking the modulus of the
 #' Fourier coefficients of the signal.
 #' @param data data
-#' @param disease string of the disease name showing
 #' @param colname string of column name which represents the mortality in the data
 #' @param level string, "County" or "State"
+#' @param disease string of the disease name showing
 #' @return a plot
 #' @importFrom usmap plot_usmap us_map
 #' @importFrom ggplot2 scale_fill_gradientn geom_polygon aes ggtitle theme element_text
@@ -73,7 +73,7 @@ mortality_map <- function(data, colname, level="County", disease="Diabetes") {
 #' The spectral signature is calculated by taking the modulus of the
 #' Fourier coefficients of the signal.
 #' @param data prepared data
-#' @param colname x
+#' @param index the svi want to plot in x-axis
 #' @param disease string of disease name
 #' @return a plot
 #' @importFrom ggplot2  ggplot geom_point aes theme labs

@@ -9,9 +9,9 @@ mortality_vs_svi_scatter(data, index, disease = "Diabetes")
 \arguments{
 \item{data}{prepared data}
 
-\item{disease}{string of disease name}
+\item{index}{the svi want to plot in x-axis}
 
-\item{colname}{x}
+\item{disease}{string of disease name}
 }
 \value{
 a plot

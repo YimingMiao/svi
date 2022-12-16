@@ -20,6 +20,10 @@ Imports:
 Depends: 
     R (>= 2.10)
 Suggests: 
-    testthat (>= 3.0.0)
+    covr,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    vdiffr
 Config/testthat/edition: 3
 LazyData: true
