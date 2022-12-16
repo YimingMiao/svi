@@ -25,8 +25,5 @@ df |> mortality_vs_svi_scatter("RPL_THEME1", "Diabetes")
 
 diabetes |> mortality_vs_svi_scatter
 
-for (i in "fhjsk") {
-  print(i)
-}
 
 
