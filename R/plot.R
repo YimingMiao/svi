@@ -44,16 +44,12 @@ svi_map <- function(data, index) {
 #' @importFrom usmap plot_usmap us_map
 #' @importFrom ggplot2 scale_fill_gradientn geom_polygon aes ggtitle theme element_text
 #' @export
-mortality_map <- function(data, colname, level="County", disease="Diabetes") {
+mortality_map <- function(data, colname, level = "County", disease = "Diabetes") {
   if (!("fips" %in% colnames(data))) {
     stop("`data` must be a data.frame containing `fips` column.")
   } else {
     plot_usmap(data = data, values = colname,
                linewidth = 0.08, color = "black") +
-      # scale_fill_continuous(low = "#fff7ec",
-      #                       high = "#b30000",
-      #                       mid = "#fdd49e",
-      #                       name = "deaths per 100,000 population") +
       scale_fill_gradientn(colours = c("#fff7ec", "#fdd49e", "#fcbd59", "#d72f1f", "#b30000")) +
       geom_polygon(data = us_map(regions = "states"),
                    aes(x, y, group = group),
@@ -79,12 +75,12 @@ mortality_map <- function(data, colname, level="County", disease="Diabetes") {
 #' @importFrom ggplot2  ggplot geom_point aes theme labs
 #' @importFrom ggthemes theme_clean
 #' @export
-mortality_vs_svi_scatter <- function(data, index, disease="Diabetes") {
+mortality_vs_svi_scatter <- function(data, index, disease = "Diabetes") {
   if (!("MORTALITY" %in% colnames(data))) {
     stop("`data` must be a data.frame containing `MORTALITY` column.")
   }
-  svi_cols = names(which(map_lgl(vulnerability, is.double)))
-  svi_estimates = svi_cols[2: (length(svi_cols)-2)]
+  svi_cols <-  names(which(map_lgl(vulnerability, is.double)))
+  svi_estimates <-  svi_cols[2 : (length(svi_cols) - 2)]
   if (!(index %in% svi_estimates)) {
     stop("`x` axis here should be of SVI estimates.")
   }

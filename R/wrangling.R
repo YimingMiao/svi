@@ -20,7 +20,7 @@ mnnn_to_na <- function(data, column, target) {
 #' Fourier coefficients of the signal.
 #' @param data data
 #' @param reliable default is TRUE
-CR_interpolate <- function(data, reliable = TRUE) {
+cr_interpolate <- function(data, reliable = TRUE) {
   should_have <- c("Deaths", "Population", "Crude.Rate")
   if (!(all(should_have %in% colnames(data)))) {
     stop(paste("`data` must contain",
@@ -52,7 +52,7 @@ CR_interpolate <- function(data, reliable = TRUE) {
 #' @export
 prepare <- function(vulnerability, mortality, reliable = TRUE) {
   mortality <- mortality |>
-               CR_interpolate(reliable = reliable) |>
+               cr_interpolate(reliable = reliable) |>
                head(-1) |>
                rename(MORTALITY = Crude.Rate) |>
                select(County.Code, MORTALITY)

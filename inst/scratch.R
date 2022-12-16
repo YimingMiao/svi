@@ -13,7 +13,7 @@ vulnerability |> mnnn_to_na(names(which(map_lgl(vulnerability, is.double))), -99
 df |> rename(fips = FIPS) |>
       mortality_map("Diabetes", "County", "MORTALITY")
 
-diabetes |> CR_interpolate(reliable = FALSE) |>
+diabetes |> interpolate_CR(reliable = FALSE) |>
             rename(fips = County.Code) |>
             mortality_map("Crude.Rate")
 

@@ -49,7 +49,7 @@ test_that(
   "The mortality_map() returns a ggplot object.",
   {
     p <- diabetes |>
-         CR_interpolate(reliable = FALSE) |>
+         cr_interpolate(reliable = FALSE) |>
          rename(fips = County.Code) |>
          mortality_map("Crude.Rate", "County", "Diabetes")
     expect_true(inherits(p, "gg"))
@@ -68,7 +68,7 @@ test_that(
   "The mortality_map() is correct for diabetes data at county level.",
   {
     p <- diabetes |>
-         CR_interpolate(reliable = FALSE) |>
+         cr_interpolate(reliable = FALSE) |>
          rename(fips = County.Code) |>
          mortality_map("Crude.Rate")
     vdiffr::expect_doppelganger("diabetes-county-map", p)
@@ -123,4 +123,3 @@ test_that(
     vdiffr::expect_doppelganger("diabetes-RPL_THEME1", p)
   }
 )
-

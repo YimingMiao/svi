@@ -4,3 +4,6 @@
 ^data-raw$
 ^\.lintr$
 ^\.git$
+^README\.Rmd$
+^\.github$
+^codecov\.yml$

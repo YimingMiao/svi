@@ -1,2 +1,5 @@
 linters: linters_with_defaults(line_length_linter=line_length_linter(150))
+exclusions: list(
+    "inst/scratch.R"
+  )
 encoding: "UTF-8"

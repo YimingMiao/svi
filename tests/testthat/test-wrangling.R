@@ -9,29 +9,29 @@ test_that(
 )
 
 
-# CR_interpolate() --------------------------------------------------------------------------
+# cr_interpolate() --------------------------------------------------------------------------
 
 test_that(
-  "The CR_interpolate() returns a dataframe for `reliable = TRUE`.",
+  "The cr_interpolate() returns a dataframe for `reliable = TRUE`.",
   {
-    d <- diabetes |> CR_interpolate(reliable = TRUE)
+    d <- diabetes |> cr_interpolate(reliable = TRUE)
     expect_true(inherits(d, "data.frame"))
   }
 )
 
 test_that(
-  "The CR_interpolate() returns a dataframe for `reliable = FALSE`.",
+  "The cr_interpolate() returns a dataframe for `reliable = FALSE`.",
   {
-    d <- diabetes |> CR_interpolate(reliable = FALSE)
+    d <- diabetes |> cr_interpolate(reliable = FALSE)
     expect_true(inherits(d, "data.frame"))
   }
 )
 
 test_that(
-  "The CR_interpolate() errors when no `Deaths`/`Population`/`Crude.Rate` columns.",
+  "The cr_interpolate() errors when no `Deaths`/`Population`/`Crude.Rate` columns.",
   {
     data(iris)
-    expect_error(CR_interpolate(iris))
+    expect_error(cr_interpolate(iris))
   }
 )
 
