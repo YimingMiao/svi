@@ -27,3 +27,4 @@ Suggests:
     vdiffr
 Config/testthat/edition: 3
 LazyData: true
+VignetteBuilder: knitr
