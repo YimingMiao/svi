@@ -19,7 +19,8 @@ mortality_map(data, colname, level = "County", disease = "Diabetes")
 a US mortality map.
 }
 \description{
-This function plots US mortality map for selected disease.
+This function plots US mortality map for selected disease, either in county level or state level (should be indicated
+in parameter).
 }
 \examples{
 library(dplyr)

@@ -2,22 +2,22 @@
 % Please edit documentation in R/wrangling.R
 \name{mnnn_to_na}
 \alias{mnnn_to_na}
-\title{Change NA to Target Value}
+\title{Substitute Target Value into NA}
 \usage{
 mnnn_to_na(data, column, target)
 }
 \arguments{
-\item{data}{original data.}
+\item{data}{a dataframe which needs to change some items into NA.}
 
 \item{column}{column needs to be substituted.}
 
 \item{target}{target value.}
 }
 \value{
-a data frame with NA's of selected columns replaced with the target value.
+a data frame with target value in selected columns replaced with NA.
 }
 \description{
-This function changes NA in the selected data columns to the target value.
+This function changes target value in a given data columns to NA.
 }
 \examples{
 data("diabetes")

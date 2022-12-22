@@ -17,7 +17,7 @@ prepare(vulnerability, mortality, reliable = TRUE)
 a data frame joining SVI data and mortality data.
 }
 \description{
-This function joins SVI data and mortality data from CDC.
+This function joins SVI data and mortality data from CDC, and removed non-thematic SVIs.
 }
 \examples{
 data("vulnerability")

@@ -2,7 +2,7 @@
 title: "svi"
 author: Kexin Wang, Yiming Miao
 date: 12/21/2022
-output: pdf_document
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{svi}
   %\VignetteEngine{knitr::rmarkdown}
@@ -34,7 +34,7 @@ Social vulnerability measures a community’s ability to prevent suffering and f
 
 The social vulnerability index 2018 dataset (`vulnerability`) in this package was achieved from the Centers for Disease Control and Prevention (CDC). The dataset records the relative vulnerability estimates of the US at a county-level by ranking the 15 census variables in 4 major themes: socioeconomic status (SES), household composition and disability (HCD), minority status and language (MSL), housing type and transportation (HTT). 
 
-The SES theme comprises 4 variables: percentage below poverty, percentage unemployed, per capita income, and percentage with no high school diploma. The HCD theme constitutes 4 variables: the percentage of people aged $geq$ 65 years, percentage of people aged $\leq$ 17 years, percentage of disabled people, and percentage of single-parent households. The MSL theme comprises 2 variables: percentage minority and the percentage who speak English less than well. Finally, the HTT theme includes 5 social variables: percentage multi-unit structures, percentage mobile homes, percentage crowding, percentage no vehicle, and percentage group quarters. The vulnerability index (percentile ranking) of 15 variables, 4 theme summary, and 1 overall summary are scored from 0 to 1, with higher values denoting higher vulnerability. 
+The SES theme comprises 4 variables: percentage below poverty, percentage unemployed, per capita income, and percentage with no high school diploma. The HCD theme constitutes 4 variables: the percentage of people aged $\geq$ 65 years, percentage of people aged $\leq$ 17 years, percentage of disabled people, and percentage of single-parent households. The MSL theme comprises 2 variables: percentage minority and the percentage who speak English less than well. Finally, the HTT theme includes 5 social variables: percentage multi-unit structures, percentage mobile homes, percentage crowding, percentage no vehicle, and percentage group quarters. The vulnerability index (percentile ranking) of 15 variables, 4 theme summary, and 1 overall summary are scored from 0 to 1, with higher values denoting higher vulnerability. 
 
 
 ##### Dataset: `diabetes`
@@ -60,7 +60,7 @@ With this package, users can achieve the CDC SVI 2018 dataset and the diabetes m
 
 Diabetes, a chronic and metabolic disease, was the seventh leading cause of deaths in the United States in 2018. Both environmental and genetic factors can lead to diabetes. Some specific causes include family history, race, age, obesity and diet. Meanwhile, social determinants such as education, income and housing have also been shown to be responsible for the increased incidence. By effectively identifying high-risk areas and populations for diabetes, the government can provide more appropriate social support services and reduce health disparities.
 
-To address this pressing health concern, a growing number of studies have scrutinized the impact of multi-level social factors on diabetes. In this R package project, with the built-in data and functions, we aim to investigate the impact of four themes of social vulnerability on US diabetes deaths, and identify hot spots where social vulnerability index was positively associated with death rates.
+To address this pressing health concern, a growing number of studies have scrutinized the impact of multi-level social factors on diabetes. In this R package project, with the built-in data and functions, we aim to investigate whether the social vulnerability index is associated with the US diabetes mortality at county-level, and to which extent the overall SVI and four thematic SVI may impact the distribution of diabetes mortality.
 
 
 ## Data cleaning and exploration
@@ -129,7 +129,13 @@ df |> mortality_vs_svi_scatter("RPL_THEME4", "Diabetes")
 
 From the scatter plots, overall SVI, socioeconomic status and household composition are positively correlated to diabetes mortality while minority is negatively associated. There is no obvious relationship between housing type and mortality.
 
-We then further fit a multiple linear regression to model the relationship between log mortality and the vulnerability indices in 4 themes:
+We then further fit a multiple linear regression to model the relationship between log mortality and the thematic vulnerability indices:
+
+```{r}
+model0 <- lm(log(MORTALITY) ~ RPL_THEMES, data = df)
+summary(model0)
+```
+
 
 ```{r}
 model1 <- lm(log(MORTALITY) ~ RPL_THEME1 + RPL_THEME2 + RPL_THEME3 + RPL_THEME4, data = df)
@@ -138,16 +144,16 @@ summary(model1)
 
 The results of regressing log-transformed mortality on the overall index are consistent with the findings of the scatter plots.
 
-The coefficients show that an increase of one unit in socioeconomic status (household composition) ranking is associated with 67.3 (47.5) percent increase in mortality; whereas a decrease of one unit in minority ranking is related to 63.4 percent increase in mortality. A p-value of 0.54 indicates that the relationship between housing type and mortality is not statistically significant.
+The coefficients show that, generally, an increase of one unit in overall ranking is associated with 2 times (`exp(0.70921) =  2.032385`) increase in diabetes deaths per 100,000 population. Specifically, an increase of one unit in socioeconomic status (household composition) ranking is associated with `exp(0.67307) = 1.960246` (`exp(0.47509) = 1.608159`) times increase in diabetes deaths per 100,000 population; whereas an increase of one unit in minority ranking is related to `exp(-0.63363)=0.530662` times decrease in mortality. A p-value of 0.54 indicates that the relationship between housing type and mortality is not statistically significant.
 
-The negative coefficient of `RPL_THEME3` is slightly counterintuitive here, since it is usually thought that being minority is a risk factor of limited access to health service, and hence higher mortality rate. However, the negative coefficient in the model above illustrates that being a minority is protective in diabetes death, with other social circumstances conditioned. 
+The negative coefficient of `RPL_THEME3` is slightly counter-intuitive here, since it is usually thought that being minority is a risk factor of limited access to health service, and hence higher mortality rate. However, the negative coefficient in the model above illustrates that being a minority is protective in diabetes death, with other social circumstances conditioned. 
 For this issue, there might be two explanations.  First, minority ethnicities are not having higher mortality rates, but the lower socioeconomic status and other factors that are usually correlated with it lead to the higher mortality. Given the same socioeconomic status and educational attainment, it may be the truth that racial ethnicity itself contributes to lower diabetes mortality rate. Second, “minority” is a broad concept, which includes various ethnicities, e.g. hispanic, African American, and asian. The given data only records the total percentage of minorities, but without further details on the composition of specific races. However, the prevalence of diabetes among ethnicities do vary a lot, so this issue may lead to the model results being slightly biased. 
 
 Furthermore, the R-squared (0.43) of the model is not high enough, which indicates there may be other factors besides SVI that can explain the variability in diabetes mortality.
 
 ## Interpretations and Conclusion
 
-
+To sum up, based on the analyses above, we find that the social vulnerability index is positively associated with the mortality rate of diabetes, especially regarding socioeconomic status and household composition. Thus, upon the public health management of chronic diseases, like diabetes, the health department may pay more attention to the population with relatively low-income and low educational attainment, and also the families with more children and elderly. Due to lack of resources, these people may have less knowledge about chronic disease management and the importance of cultivating a healthy lifestyle. To better help these disadvantaged groups, government and health departments may give more targeted actions, e.g. providing free annual body check, and promoting healthy diets.
 
 
 ## Limitations

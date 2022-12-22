@@ -41,7 +41,8 @@ svi_map <- function(data, index) {
 
 #' Plot US Mortality Map
 #'
-#' This function plots US mortality map for selected disease.
+#' This function plots US mortality map for selected disease, either in county level or state level (should be indicated
+#' in parameter).
 #' @param data data. It is assumed to have a `fips` column.
 #' @param colname string of column name which represents the mortality in the data.
 #' @param level string, "County" or "State". (Default is `County`)

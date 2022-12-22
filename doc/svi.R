@@ -51,6 +51,10 @@ df |> mortality_vs_svi_scatter("RPL_THEME3", "Diabetes")
 df |> mortality_vs_svi_scatter("RPL_THEME4", "Diabetes")
 
 ## -----------------------------------------------------------------------------
+model0 <- lm(log(MORTALITY) ~ RPL_THEMES, data = df)
+summary(model0)
+
+## -----------------------------------------------------------------------------
 model1 <- lm(log(MORTALITY) ~ RPL_THEME1 + RPL_THEME2 + RPL_THEME3 + RPL_THEME4, data = df)
 summary(model1)
 

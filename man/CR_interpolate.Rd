@@ -2,23 +2,24 @@
 % Please edit documentation in R/wrangling.R
 \name{cr_interpolate}
 \alias{cr_interpolate}
-\title{Get the County-level Mortality}
+\title{Interpolate the Disease Mortality Data}
 \usage{
 cr_interpolate(data, reliable = TRUE)
 }
 \arguments{
-\item{data}{original data. It is assumed to have
-a \code{Deaths}, \code{Population}, and \code{Crude.Rate} column.}
+\item{data}{original data. It is assumed to have a \code{Deaths}, \code{Population}, and \code{Crude.Rate} column.}
 
 \item{reliable}{if taking into account deaths <= 20. (Default is \code{TRUE})}
 }
 \value{
-a data frame with county-level mortality.
+a data frame with interpolated mortality rate
 }
 \description{
-The mortality is calculated by the number of deaths per 100,000 total
-population. If reliable is TRUE, the mortality for counties with <= 20
-deaths is marked as unavailable.
+In the original data from CDC WONDER Online Database, the mortality rate in counties with less than 20 cases
+of deaths were recorded as "unreliable". In this function, users may choose whether to interpolate the unreliable
+values. If reliability is TRUE, the unreliable information is kept, and the string of "unreliable" will be
+substituted with NA. Otherwise, the value will be interpolated by calculating the quotient of number of deaths
+divided by the population.
 }
 \examples{
 data("diabetes")
