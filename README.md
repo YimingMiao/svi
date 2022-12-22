@@ -12,8 +12,6 @@ coverage](https://codecov.io/gh/YimingMiao/svi/branch/main/graph/badge.svg)](htt
 [![test-coverage](https://github.com/YimingMiao/svi/actions/workflows/test-coverage.yaml)](https://github.com/YimingMiao/svi/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
-The goal of svi is to …
-
 ## Installation
 
 You can install the development version of svi from
@@ -24,38 +22,58 @@ You can install the development version of svi from
 devtools::install_github("YimingMiao/svi")
 ```
 
+## Description
+
+`svi` provides tools to study the relationship between social
+vulnerability index and disease mortality. The package contains two
+datasets: `vulnerability` and `diabetes`, and relevant functions to
+conduct basic data cleaning and visualizations.
+
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
 
+-   Attach required packages
+
 ``` r
 library(svi)
-## basic example code
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+library(purrr)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+-   Plot US SVI Map
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+vulnerability |> mnnn_to_na(names(which(map_lgl(vulnerability, is.double))), -999) |>
+  rename(fips = FIPS) |>
+  svi_map("RPL_THEMES")
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
-You can also embed plots, for example:
+-   Plot US Diabetes Mortality Map
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+``` r
+diabetes |> cr_interpolate(reliable = FALSE) |>
+  rename(fips = County.Code) |>
+  mortality_map("Crude.Rate")
+```
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+-   Scatter Plot of Diabetes Mortality vs. SVI Estimates
+
+``` r
+df <- prepare(vulnerability, diabetes, reliable = FALSE)
+df |> mortality_vs_svi_scatter("RPL_THEMES", "Diabetes")
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
