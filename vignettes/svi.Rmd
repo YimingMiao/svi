@@ -2,7 +2,7 @@
 title: "svi"
 author: Kexin Wang, Yiming Miao
 date: 12/21/2022
-output: rmarkdown::html_vignette
+output: pdf_document
 vignette: >
   %\VignetteIndexEntry{svi}
   %\VignetteEngine{knitr::rmarkdown}

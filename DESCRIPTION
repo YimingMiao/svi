@@ -1,11 +1,11 @@
 Package: svi
 Type: Package
-Title: What the Package Does (Title Case)
+Title: svi
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Kexin Wang, Yiming Miao
+Maintainer: The package maintainer <yiming.miao@yale.edu> <kexin.wang.kw789@yale.edu>
+Description: This package provides tools to study the relationship between social vulnerability index and disease mortality. 
+    The package contains two datasets: vulnerability and diabetes, and relevant functions to conduct basic data cleaning and visualizations.
 License: LGPL (>= 2.1)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
