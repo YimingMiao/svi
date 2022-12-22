@@ -1,13 +1,20 @@
-#' Get the Spectral Signature of Accelerometry Data
+#' Plot US SVI Map
 #'
-#' The spectral signature is calculated by taking the modulus of the
-#' Fourier coefficients of the signal.
-#' @param data data
-#' @param index string
-#' @return a plot
+#' This function plots US SVI map for selected estimates.
+#' @param data data. It is assumed to have a `fips` column.
+#' @param index string of column name which represents the SVI estimates.
+#' @return a US SVI Map.
 #' @importFrom dplyr rename
 #' @importFrom usmap plot_usmap us_map
 #' @importFrom ggplot2 scale_fill_continuous geom_polygon aes ggtitle theme element_text
+#' @examples
+#' library(dplyr)
+#' library(purrr)
+#' data("vulnerability")
+#' vulnerability |>
+#'   mnnn_to_na(names(which(map_lgl(vulnerability, is.double))), -999) |>
+#'   rename(fips = FIPS) |>
+#'   svi_map("EPL_POV")
 #' @export
 svi_map <- function(data, index) {
   if (!("fips" %in% colnames(data))) {
@@ -32,17 +39,23 @@ svi_map <- function(data, index) {
 }
 
 
-#' Get the Spectral Signature of Accelerometry Data
+#' Plot US Mortality Map
 #'
-#' The spectral signature is calculated by taking the modulus of the
-#' Fourier coefficients of the signal.
-#' @param data data
-#' @param colname string of column name which represents the mortality in the data
-#' @param level string, "County" or "State"
-#' @param disease string of the disease name showing
-#' @return a plot
+#' This function plots US mortality map for selected disease.
+#' @param data data. It is assumed to have a `fips` column.
+#' @param colname string of column name which represents the mortality in the data.
+#' @param level string, "County" or "State". (Default is `County`)
+#' @param disease string of the disease name showing. (Default is `Diabetes`)
+#' @return a US mortality map.
 #' @importFrom usmap plot_usmap us_map
 #' @importFrom ggplot2 scale_fill_gradientn geom_polygon aes ggtitle theme element_text
+#' @examples
+#' library(dplyr)
+#' data("diabetes")
+#' diabetes |>
+#'   cr_interpolate(reliable = FALSE) |>
+#'   rename(fips = County.Code) |>
+#'   mortality_map("Crude.Rate", "County", "Diabetes")
 #' @export
 mortality_map <- function(data, colname, level = "County", disease = "Diabetes") {
   if (!("fips" %in% colnames(data))) {
@@ -64,16 +77,20 @@ mortality_map <- function(data, colname, level = "County", disease = "Diabetes")
 
 
 
-#' Get the Spectral Signature of Accelerometry Data
+#' Scatter Plot of Mortality vs. SVI Estimates
 #'
-#' The spectral signature is calculated by taking the modulus of the
-#' Fourier coefficients of the signal.
-#' @param data prepared data
-#' @param index the svi want to plot in x-axis
-#' @param disease string of disease name
-#' @return a plot
+#' This function shows the scatter plot of mortality versus the selected SVI estimates.
+#' @param data prepared data. It is assumed to have a `MORTALITY` column.
+#' @param index selected SVI estimates.
+#' @param disease string of disease name. (Default is `Diabetes`)
+#' @return a scatter plot.
 #' @importFrom ggplot2  ggplot geom_point aes theme labs
 #' @importFrom ggthemes theme_clean
+#' @examples
+#' data("vulnerability")
+#' data("diabetes")
+#' df <- prepare(vulnerability, diabetes, reliable = FALSE)
+#' mortality_vs_svi_scatter(df, "RPL_THEME1", "Diabetes")
 #' @export
 mortality_vs_svi_scatter <- function(data, index, disease = "Diabetes") {
   if (!("MORTALITY" %in% colnames(data))) {

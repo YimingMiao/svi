@@ -2,21 +2,25 @@
 % Please edit documentation in R/wrangling.R
 \name{prepare}
 \alias{prepare}
-\title{Get the Spectral Signature of Accelerometry Data}
+\title{Prepare Data for Plot and Regression}
 \usage{
 prepare(vulnerability, mortality, reliable = TRUE)
 }
 \arguments{
-\item{vulnerability}{original SVI data from CDC}
+\item{vulnerability}{original SVI data from CDC.}
 
-\item{mortality}{original mortality data from CDC}
+\item{mortality}{original mortality data from CDC.}
 
-\item{reliable}{if taking into account case<= 20 (Default is \code{TRUE})}
+\item{reliable}{if taking into account deaths <= 20. (Default is \code{TRUE})}
 }
 \value{
-a data frame
+a data frame joining SVI data and mortality data.
 }
 \description{
-The spectral signature is calculated by taking the modulus of the
-Fourier coefficients of the signal.
+This function joins SVI data and mortality data from CDC.
+}
+\examples{
+data("vulnerability")
+data("diabetes")
+prepare(vulnerability, diabetes)
 }

@@ -2,21 +2,26 @@
 % Please edit documentation in R/plot.R
 \name{mortality_vs_svi_scatter}
 \alias{mortality_vs_svi_scatter}
-\title{Get the Spectral Signature of Accelerometry Data}
+\title{Scatter Plot of Mortality vs. SVI Estimates}
 \usage{
 mortality_vs_svi_scatter(data, index, disease = "Diabetes")
 }
 \arguments{
-\item{data}{prepared data}
+\item{data}{prepared data. It is assumed to have a \code{MORTALITY} column.}
 
-\item{index}{the svi want to plot in x-axis}
+\item{index}{selected SVI estimates.}
 
-\item{disease}{string of disease name}
+\item{disease}{string of disease name. (Default is \code{Diabetes})}
 }
 \value{
-a plot
+a scatter plot.
 }
 \description{
-The spectral signature is calculated by taking the modulus of the
-Fourier coefficients of the signal.
+This function shows the scatter plot of mortality versus the selected SVI estimates.
+}
+\examples{
+data("vulnerability")
+data("diabetes")
+df <- prepare(vulnerability, diabetes, reliable = FALSE)
+mortality_vs_svi_scatter(df, "RPL_THEME1", "Diabetes")
 }

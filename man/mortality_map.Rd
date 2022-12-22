@@ -2,23 +2,30 @@
 % Please edit documentation in R/plot.R
 \name{mortality_map}
 \alias{mortality_map}
-\title{Get the Spectral Signature of Accelerometry Data}
+\title{Plot US Mortality Map}
 \usage{
 mortality_map(data, colname, level = "County", disease = "Diabetes")
 }
 \arguments{
-\item{data}{data}
+\item{data}{data. It is assumed to have a \code{fips} column.}
 
-\item{colname}{string of column name which represents the mortality in the data}
+\item{colname}{string of column name which represents the mortality in the data.}
 
-\item{level}{string, "County" or "State"}
+\item{level}{string, "County" or "State". (Default is \code{County})}
 
-\item{disease}{string of the disease name showing}
+\item{disease}{string of the disease name showing. (Default is \code{Diabetes})}
 }
 \value{
-a plot
+a US mortality map.
 }
 \description{
-The spectral signature is calculated by taking the modulus of the
-Fourier coefficients of the signal.
+This function plots US mortality map for selected disease.
+}
+\examples{
+library(dplyr)
+data("diabetes")
+diabetes |>
+  cr_interpolate(reliable = FALSE) |>
+  rename(fips = County.Code) |>
+  mortality_map("Crude.Rate", "County", "Diabetes")
 }

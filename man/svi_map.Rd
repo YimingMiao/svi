@@ -2,19 +2,27 @@
 % Please edit documentation in R/plot.R
 \name{svi_map}
 \alias{svi_map}
-\title{Get the Spectral Signature of Accelerometry Data}
+\title{Plot US SVI Map}
 \usage{
 svi_map(data, index)
 }
 \arguments{
-\item{data}{data}
+\item{data}{data. It is assumed to have a \code{fips} column.}
 
-\item{index}{string}
+\item{index}{string of column name which represents the SVI estimates.}
 }
 \value{
-a plot
+a US SVI Map.
 }
 \description{
-The spectral signature is calculated by taking the modulus of the
-Fourier coefficients of the signal.
+This function plots US SVI map for selected estimates.
+}
+\examples{
+library(dplyr)
+library(purrr)
+data("vulnerability")
+vulnerability |>
+  mnnn_to_na(names(which(map_lgl(vulnerability, is.double))), -999) |>
+  rename(fips = FIPS) |>
+  svi_map("EPL_POV")
 }

@@ -2,14 +2,21 @@
 % Please edit documentation in R/wrangling.R
 \name{mortality_by_state}
 \alias{mortality_by_state}
-\title{Get the Spectral Signature of Accelerometry Data}
+\title{Get the mortality by state from county-level data}
 \usage{
 mortality_by_state(data)
 }
 \arguments{
-\item{data}{data}
+\item{data}{county-level data on mortality. It is assumed to have
+a \code{County}, \code{County.Code}, \code{Deaths}, and \code{Population} column.}
+}
+\value{
+a data frame with state-level deaths, population, and mortality.
 }
 \description{
-The spectral signature is calculated by taking the modulus of the
-Fourier coefficients of the signal.
+This function groups mortality by state based on county-level data.
+}
+\examples{
+data("diabetes")
+mortality_by_state(diabetes)
 }

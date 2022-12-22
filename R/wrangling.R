@@ -1,11 +1,15 @@
 
-#' Get the Spectral Signature of Accelerometry Data
+#' Change NA to Target Value
 #'
-#' The spectral signature is calculated by taking the modulus of the
-#' Fourier coefficients of the signal.
-#' @param data data
-#' @param column column needs to be substituted
-#' @param target target
+#' This function changes NA in the selected data columns to the target value.
+#' @param data original data.
+#' @param column column needs to be substituted.
+#' @param target target value.
+#' @return a data frame with NA's of selected columns replaced with the target value.
+#' @examples
+#' data("diabetes")
+#' diabetes |> mnnn_to_na("Crude.Rate", "Unreliable")
+#' @export
 mnnn_to_na <- function(data, column, target) {
   for (i in column) {
     data[data[[i]] == target, i] <- NA
@@ -14,12 +18,19 @@ mnnn_to_na <- function(data, column, target) {
 }
 
 
-#' Get the Spectral Signature of Accelerometry Data
+#' Get the County-level Mortality
 #'
-#' The spectral signature is calculated by taking the modulus of the
-#' Fourier coefficients of the signal.
-#' @param data data
-#' @param reliable default is TRUE
+#' The mortality is calculated by the number of deaths per 100,000 total
+#' population. If reliable is TRUE, the mortality for counties with <= 20
+#' deaths is marked as unavailable.
+#' @param data original data. It is assumed to have
+#' a `Deaths`, `Population`, and `Crude.Rate` column.
+#' @param reliable if taking into account deaths <= 20. (Default is `TRUE`)
+#' @return a data frame with county-level mortality.
+#' @examples
+#' data("diabetes")
+#' diabetes |> cr_interpolate(reliable = TRUE)
+#' @export
 cr_interpolate <- function(data, reliable = TRUE) {
   should_have <- c("Deaths", "Population", "Crude.Rate")
   if (!(all(should_have %in% colnames(data)))) {
@@ -38,17 +49,20 @@ cr_interpolate <- function(data, reliable = TRUE) {
 
 
 
-#' Get the Spectral Signature of Accelerometry Data
+#' Prepare Data for Plot and Regression
 #'
-#' The spectral signature is calculated by taking the modulus of the
-#' Fourier coefficients of the signal.
-#' @param vulnerability original SVI data from CDC
-#' @param mortality original mortality data from CDC
-#' @param reliable if taking into account case<= 20 (Default is `TRUE`)
-#' @return a data frame
+#' This function joins SVI data and mortality data from CDC.
+#' @param vulnerability original SVI data from CDC.
+#' @param mortality original mortality data from CDC.
+#' @param reliable if taking into account deaths <= 20. (Default is `TRUE`)
+#' @return a data frame joining SVI data and mortality data.
 #' @importFrom dplyr rename select left_join
 #' @importFrom purrr map_lgl
 #' @importFrom utils head
+#' @examples
+#' data("vulnerability")
+#' data("diabetes")
+#' prepare(vulnerability, diabetes)
 #' @export
 prepare <- function(vulnerability, mortality, reliable = TRUE) {
   mortality <- mortality |>
@@ -64,13 +78,18 @@ prepare <- function(vulnerability, mortality, reliable = TRUE) {
 }
 
 
-#' Get the Spectral Signature of Accelerometry Data
+#' Get the mortality by state from county-level data
 #'
-#' The spectral signature is calculated by taking the modulus of the
-#' Fourier coefficients of the signal.
-#' @param data data
+#' This function groups mortality by state based on county-level data.
+#' @param data county-level data on mortality. It is assumed to have
+#' a `County`, `County.Code`, `Deaths`, and `Population` column.
+#' @return a data frame with state-level deaths, population, and mortality.
 #' @importFrom dplyr mutate group_by summarise
 #' @importFrom utils head
+#' @examples
+#' data("diabetes")
+#' mortality_by_state(diabetes)
+#' @export
 mortality_by_state <- function(data) {
   should_have <- c("County", "County.Code", "Deaths", "Population")
   if (!(all(should_have %in% colnames(data)))) {

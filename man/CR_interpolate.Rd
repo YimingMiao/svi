@@ -2,16 +2,25 @@
 % Please edit documentation in R/wrangling.R
 \name{cr_interpolate}
 \alias{cr_interpolate}
-\title{Get the Spectral Signature of Accelerometry Data}
+\title{Get the County-level Mortality}
 \usage{
 cr_interpolate(data, reliable = TRUE)
 }
 \arguments{
-\item{data}{data}
+\item{data}{original data. It is assumed to have
+a \code{Deaths}, \code{Population}, and \code{Crude.Rate} column.}
 
-\item{reliable}{default is TRUE}
+\item{reliable}{if taking into account deaths <= 20. (Default is \code{TRUE})}
+}
+\value{
+a data frame with county-level mortality.
 }
 \description{
-The spectral signature is calculated by taking the modulus of the
-Fourier coefficients of the signal.
+The mortality is calculated by the number of deaths per 100,000 total
+population. If reliable is TRUE, the mortality for counties with <= 20
+deaths is marked as unavailable.
+}
+\examples{
+data("diabetes")
+diabetes |> cr_interpolate(reliable = TRUE)
 }

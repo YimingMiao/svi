@@ -2,18 +2,24 @@
 % Please edit documentation in R/wrangling.R
 \name{mnnn_to_na}
 \alias{mnnn_to_na}
-\title{Get the Spectral Signature of Accelerometry Data}
+\title{Change NA to Target Value}
 \usage{
 mnnn_to_na(data, column, target)
 }
 \arguments{
-\item{data}{data}
+\item{data}{original data.}
 
-\item{column}{column needs to be substituted}
+\item{column}{column needs to be substituted.}
 
-\item{target}{target}
+\item{target}{target value.}
+}
+\value{
+a data frame with NA's of selected columns replaced with the target value.
 }
 \description{
-The spectral signature is calculated by taking the modulus of the
-Fourier coefficients of the signal.
+This function changes NA in the selected data columns to the target value.
+}
+\examples{
+data("diabetes")
+diabetes |> mnnn_to_na("Crude.Rate", "Unreliable")
 }
