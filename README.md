@@ -6,10 +6,10 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/YimingMiao/svi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/YimingMiao/svi/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/YimingMiao/svi/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/YimingMiao/bis620.2022/actions/workflows/test-coverage.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/YimingMiao/svi/branch/main/graph/badge.svg)](https://app.codecov.io/gh/YimingMiao/svi?branch=main)
-[![lint](https://github.com/YimingMiao/svi/actions/workflows/lint.yaml)](https://github.com/YimingMiao/svi/actions/workflows/lint.yaml)
-[![test-coverage](https://github.com/YimingMiao/svi/actions/workflows/test-coverage.yaml)](https://github.com/YimingMiao/svi/actions/workflows/test-coverage.yaml)
+[![lint](https://github.com/YimingMiao/svi/actions/workflows/lint.yaml/badge.svg)](https://github.com/YimingMiao/svi/actions/workflows/lint.yaml)
 <!-- badges: end -->
 
 ## Installation
